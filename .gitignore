@@ -1,3 +1,4 @@
 node_modules
 node_modules
 \n# Python venv\n.venv\n.venv-docx\n# logs\n*.log\n# dist/build\ndist\n# local env\n.env\n
+\n# Local sqlite DB\nbackend/prisma/dev.db
