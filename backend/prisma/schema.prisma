@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  role         String
+  createdAt    DateTime @default(now())
+}
+
+model Member {
+  id               String   @id @default(cuid())
+  membershipNo     String   @unique
+  nik              String?
+  name             String
+  birthDate        DateTime?
+  gender           String?
+  secondaryName    String?
+  primaryCuName    String?
+  tpName           String?
+  infoDate         DateTime?
+  deathDate        DateTime?
+  claimDate        DateTime?
+  deathType        String?
+  documents        String?
+  sourceData       String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  benefits         Benefit[]
+
+  @@index([updatedAt])
+  @@index([name])
+  @@index([nik])
+  @@index([primaryCuName])
+  @@index([tpName])
+}
+
+model Benefit {
+  id              String      @id @default(cuid())
+  memberId        String
+  member          Member      @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  declarationNo   Int?
+  sourceRow       Int?
+  type            String
+  insurerName     String?
+  startDate       DateTime?
+  endDate         DateTime?
+  coverageAmount  Float       @default(0)
+  premium         Float       @default(0)
+  insuranceName   String?
+  claimStatus     String      @default("BELUM_DIAJUKAN")
+  submittedAtText String?
+  analyzedAtText  String?
+  pendingAtText   String?
+  rejectedAtText  String?
+  approvedAtText  String?
+  paidAtText      String?
+  approvedDate    DateTime?
+  paidDate        DateTime?
+  rejectionReason String?
+  sourceData      String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([memberId, type])
+  @@index([claimStatus])
+  @@index([insuranceName])
+  @@index([updatedAt])
+  @@index([type])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  entity    String
+  entityId  String?
+  before    String?
+  after     String?
+  createdAt DateTime @default(now())
+}
