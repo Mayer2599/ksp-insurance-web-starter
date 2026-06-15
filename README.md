@@ -74,7 +74,3 @@ Header CSV yang dibaca mengikuti header Excel lama, misalnya:
 ## Catatan penting keamanan
 
 Jangan menyimpan password asli di database. Starter ini sudah memakai bcrypt. Jangan upload file `.env` ke GitHub.
-
-## Prompt untuk Codex
-
-Lihat `docs/CODEX_PROMPT.md`.
