@@ -589,7 +589,8 @@ app.get('/api/export/claims.xlsx', requireAuth, async (req, res) => {
 
 app.get('/api/members', requireAuth, async (req, res) => {
   const search = String(req.query.search || '').trim();
-  const { limit, page, skip } = pagination(req);
+  // Force members listing to return at most 10 entries to avoid exposing large datasets
+  const { limit, page, skip } = pagination(req, 10, 10);
   const where = memberSearchWhere(search, ['primaryCuName', 'tpName']);
 
   const [total, members] = await Promise.all([
@@ -612,7 +613,8 @@ app.get('/api/members', requireAuth, async (req, res) => {
 
 app.get('/api/policies', requireAuth, async (req, res) => {
   const search = String(req.query.search || '').trim();
-  const { limit, page, skip } = pagination(req);
+  // Force policies listing to return at most 10 entries to avoid exposing large datasets
+  const { limit, page, skip } = pagination(req, 10, 10);
   const where = search
     ? {
         OR: [

@@ -42,8 +42,8 @@ const STAGE_FIELD = {
   DIBAYAR: 'paidAtText'
 };
 
-const LOGO_URL = '/assets/astakanti-logo.svg';
-const SIDEBAR_LOGO_URL = '/assets/astakanti-logo-sidebar.svg';
+const LOGO_URL = '';
+const SIDEBAR_LOGO_URL = '';
 
 function rupiah(n) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n || 0);
@@ -96,7 +96,7 @@ function Login({ onLogin }) {
   return (
     <main className="login-page">
       <form className="login-panel" onSubmit={submit}>
-        <div className="login-brand"><img src={LOGO_URL} alt="AstaKanti Insurance Broker" /></div>
+        <div className="login-brand">AstaKanti</div>
         <h1>Login</h1>
         <label>Username<input value={username} onChange={(e) => setUsername(e.target.value)} /></label>
         <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} /></label>
@@ -120,7 +120,7 @@ function Sidebar({ active, setActive, user, onLogout }) {
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-brand"><img src={SIDEBAR_LOGO_URL} alt="AstaKanti" /></div>
+      <div className="sidebar-brand">AK</div>
       <nav>
         {items.map(([key, Icon, label]) => (
           <button key={key} className={active === key ? 'active' : ''} onClick={() => setActive(key)}>
@@ -137,7 +137,7 @@ function Sidebar({ active, setActive, user, onLogout }) {
 function Topbar({ user }) {
   return (
     <header className="topbar">
-      <div className="topbar-brand"><img src={LOGO_URL} alt="AstaKanti" /></div>
+      <div className="topbar-brand">AstaKanti</div>
       <div className="admin-pill">Admin <UserCircle2 size={18} /> <span>{user.username}</span></div>
     </header>
   );
